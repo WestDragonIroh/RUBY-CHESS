@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 require_relative './display/display_board'
-require_relative './Pieces/bishop'
-require_relative './Pieces/king'
-require_relative './Pieces/knight'
-require_relative './Pieces/pawn'
-require_relative './Pieces/queen'
-require_relative './Pieces/rook'
+require_relative './pieces/bishop'
+require_relative './pieces/king'
+require_relative './pieces/knight'
+require_relative './pieces/pawn'
+require_relative './pieces/queen'
+require_relative './pieces/rook'
 
 # Board class
 class Board
