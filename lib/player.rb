@@ -2,12 +2,15 @@
 
 # Player class for white and black sides
 class Player
-  attr_accessor :active_pieces, :color, :current_pieces, :king
+  attr_reader :color, :is_computer, :king
 
-  def initialize(board, color)
+  attr_accessor :active_pieces, :current_pieces
+
+  def initialize(board, color, is_computer)
     @active_pieces = []
     @color = color
     @current_pieces = initial_pieces(board)
+    @is_computer = is_computer
   end
 
   def initial_pieces(board)

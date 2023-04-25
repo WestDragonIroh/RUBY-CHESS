@@ -8,6 +8,20 @@ module DisplayPrompts
     gets.chomp.downcase == 'y'
   end
 
+  def game_mode
+    puts "\e[1;97mSelect the mode of game\e[0m"
+    puts "\e[1;91m  [1]\e[97m => Player vs Player \n\e[1;91m  [2]\e[97m => Player vs Computer\e[0m", ''
+    inp = gets.chomp
+    return inp.to_i - 1 if %w[2].include?(inp)
+
+    0
+  end
+
+  def mode_player
+    puts "\e[1;97mTo play with White enter \e[91m[1]\e[97m and for Black \e[91m[2]\e[0m"
+    %w[2].include?(gets.chomp) ? 0 : 1
+  end
+
   def clear_screen
     print "\e[2J\e[f"
   end
@@ -76,6 +90,11 @@ module DisplayPrompts
     puts ''
     print "\e[1;94m#{player.color.zero? ? 'White' : 'Black'} resigns the game. "
     puts "#{player.color.zero? ? 'Black' : 'White'} wins!\e[0m"
+  end
+
+  def game_draw
+    puts ''
+    puts "\e[1;94mGame is draw by repetation of moves or by 50 moves rule.\e[0m"
   end
 
   # Errors

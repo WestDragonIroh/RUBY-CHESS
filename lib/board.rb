@@ -10,7 +10,7 @@ require_relative './pieces/rook'
 
 # Board class
 class Board
-  attr_accessor :active_piece, :available, :board, :captures, :check, :rare
+  attr_accessor :active_piece, :available, :board, :captures, :check, :past_board, :rare
 
   include DisplayBoard
 
@@ -18,7 +18,8 @@ class Board
     @board = initialise_board if mode != 1
     @available = []
     @captures = []
-    @rare = { check: [], en_pass: [], previous: [] }
+    @past_board = []
+    @rare = { check: [], en_pass: [], move_number: 0, previous: [] }
 
     # custom
   end
@@ -72,5 +73,15 @@ class Board
   def set_square(cord, value)
     x, y = cord
     @board[x][y] = value
+  end
+
+  def board_string
+    s = ''
+    @board.each do |row|
+      row.each do |element|
+        s += element.nil? ? '_' : element.color.to_s + element.symbol.to_s
+      end
+    end
+    s
   end
 end
