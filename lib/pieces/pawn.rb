@@ -4,12 +4,6 @@ require_relative 'piece'
 
 # Class for Pawn piece.
 class Pawn < Piece
-  # attr_accessor :en_passent
-
-  # def initialize(args)
-  #   super(args)
-  # end
-
   def available
     return [] if @location.nil?
 

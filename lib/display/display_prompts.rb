@@ -9,12 +9,12 @@ module DisplayPrompts
   end
 
   def game_mode
-    puts "\e[1;97mSelect the mode of game\e[0m"
-    puts "\e[1;91m  [1]\e[97m => Player vs Player \n\e[1;91m  [2]\e[97m => Player vs Computer\e[0m", ''
-    inp = gets.chomp
-    return inp.to_i - 1 if %w[2].include?(inp)
-
-    0
+    puts "\e[1;97mSelect the mode of game"
+    puts "\e[91m  [1]\e[97m => Player vs Player"
+    puts "\e[91m  [2]\e[97m => Player vs Computer\n"
+    puts "\e[91m  [3]\e[97m => Load a saved games \e[0m", ''
+    inp = gets.chomp.to_i - 1
+    inp.between?(0, 2) ? inp : 0
   end
 
   def mode_player
@@ -30,7 +30,7 @@ module DisplayPrompts
     loop do
       print "\e[1;93m#{player.color.zero? ? 'White' : 'Black'}'s turn\nEnter the piece to move. "
       inp = take_input
-      return inp if %w[q].include?(inp)
+      return inp if %w[q s].include?(inp)
 
       if inp.length == 2 && inp.match?(/[a-h][1-8]/)
         cord = change_notation(inp)
@@ -45,7 +45,7 @@ module DisplayPrompts
   end
 
   def take_input
-    puts "Enter q to quit game\e[0m"
+    puts "Enter q to quit and s to save game\e[0m"
     gets.chomp.downcase
   end
 
@@ -53,7 +53,7 @@ module DisplayPrompts
     loop do
       print "\e[1;33mEnter the available move. "
       inp = take_input
-      return inp if %w[q].include?(inp)
+      return inp if %w[q s].include?(inp)
 
       if inp.length == 2 && inp.match?(/[a-h][1-8]/)
         cord = change_notation(inp)
@@ -97,8 +97,24 @@ module DisplayPrompts
     puts "\e[1;94mGame is draw by repetation of moves or by 50 moves rule.\e[0m"
   end
 
-  # Errors
+  def game_saved(filename)
+    puts "\e[97mGame saved as \e[1;36m#{filename}\e[0m"
+  end
 
+  def find_saved_file
+    children = Dir.children('saved_games')
+    puts "\e[1;97mSelect the saved game\e[0m"
+    children.each_with_index do |f, i|
+      puts "\e[1;91m  [#{i + 1}] \e[1;36m#{f}\e[0m"
+    end
+    inp = gets.chomp.to_i - 1
+    find_saved_file unless inp.between?(0, children.length)
+    children[inp]
+  end
+end
+
+# Errors
+module ErrorMessage
   def error_wrong_piece
     puts "\e[1;31mWrong piece enter\e[0m"
   end
@@ -110,4 +126,15 @@ module DisplayPrompts
   def error_wrong_move
     puts "\e[1;31mSelect from available moves\e[0m"
   end
+
+  def error_file_write(filename, err)
+    puts "\e[1;31mError while writing to file #{filename}.\e[0m"
+    puts err
+  end
+
+  def error_open_file
+    puts "\e[1;31mSaved games not available\e[0m"
+  end
 end
+
+DisplayPrompts.include(ErrorMessage)

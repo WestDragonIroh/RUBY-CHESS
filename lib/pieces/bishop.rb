@@ -4,12 +4,6 @@ require_relative 'piece'
 
 # Class for Bishop piece.
 class Bishop < Piece
-  # attr_accessor :color, :location, :available_moves
-
-  # def initialize(args)
-  #   super(args)
-  # end
-
   def available
     return [] if @location.nil?
 

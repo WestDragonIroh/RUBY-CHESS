@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative './pieces/king'
+
 # Player class for white and black sides
 class Player
   attr_reader :color, :is_computer, :king
@@ -11,6 +13,8 @@ class Player
     @color = color
     @current_pieces = initial_pieces(board)
     @is_computer = is_computer
+    @king = King.new([color, [-1, -1], 'K'])
+    @current_pieces = initial_pieces(board)
   end
 
   def initial_pieces(board)

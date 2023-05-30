@@ -2,25 +2,19 @@
 
 # Class to handle Chess Engine decisions
 class Engine
-  attr_reader :player
-
-  def initialize(player)
-    @player = player
-  end
-
-  def choose
+  def choose(player)
     puts "\e[1;93m#{player.color.zero? ? 'White' : 'Black'}'s turn\e[0m\n\n"
-    sleep(0.5)
-    @player.active_pieces.sample
+    sleep(1)
+    player.active_pieces.sample
   end
 
   def move(board)
-    sleep(0.5)
-    (board.available + board.captures * 2).sample
+    sleep(1)
+    (board.available + board.captures * 5).sample
   end
 
   def promote
-    sleep(0.5)
+    sleep(1)
     %w[n q].sample
   end
 end

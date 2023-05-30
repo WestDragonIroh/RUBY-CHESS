@@ -4,12 +4,6 @@ require_relative 'piece'
 
 # Class for Queen piece.
 class Queen < Piece
-  # attr_accessor :color, :location, :available_moves
-
-  # def initialize(args)
-  #   super(args)
-  # end
-
   def available
     return [] if @location.nil?
 

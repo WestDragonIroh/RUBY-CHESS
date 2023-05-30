@@ -4,12 +4,6 @@ require_relative 'piece'
 
 # Class for Knight piece.
 class Knight < Piece
-  # attr_accessor :available_moves
-
-  # def initialize(args)
-  #   super(args)
-  # end
-
   def available
     return [] if @location.nil?
 

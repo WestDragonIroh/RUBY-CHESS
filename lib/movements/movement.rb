@@ -17,8 +17,8 @@ module Movement
   include ValidMove
 
   def choose_piece(player)
-    piece = player.is_computer ? @engine.choose : select_piece(player)
-    return piece if %w[q].include?(piece)
+    piece = player.is_computer ? @engine.choose(player) : select_piece(player)
+    return piece if %w[q s].include?(piece)
 
     state = state_piece(piece)
     if state[1].empty? && state[2].empty?
@@ -46,7 +46,7 @@ module Movement
 
   def move_piece(player)
     destination = player.is_computer ? @engine.move(@board) : select_move(@board)
-    return destination if %w[q].include?(destination)
+    return destination if %w[q s].include?(destination)
 
     active_piece = @board.active_piece
     location = active_piece.location
@@ -66,16 +66,16 @@ module Movement
     castling_move(active_piece.symbol, destination, location, player)
     en_passant_state(active_piece.symbol, player.color, destination, location)
     move_number_state(destination)
-    reset_state_piece(destination)
+    reset_state_piece(destination, location)
     check_pawn_promotion(active_piece, destination, player)
     player_state(player.color.zero? ? @player1 : @player0)
   end
 
-  def reset_state_piece(destination)
+  def reset_state_piece(destination, location)
     @board.active_piece = nil
     @board.available = []
     @board.captures = []
-    @board.rare[:previous] = [destination]
+    @board.rare[:previous] = [destination, location]
   end
 
   def move_number_state(destination)

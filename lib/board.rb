@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative './display/display_board'
-require_relative './pieces/bishop'
-require_relative './pieces/king'
-require_relative './pieces/knight'
-require_relative './pieces/pawn'
-require_relative './pieces/queen'
-require_relative './pieces/rook'
+require_relative 'display/display_board'
+require_relative 'pieces/bishop'
+require_relative 'pieces/king'
+require_relative 'pieces/knight'
+require_relative 'pieces/pawn'
+require_relative 'pieces/queen'
+require_relative 'pieces/rook'
 
 # Board class
 class Board
@@ -14,25 +14,12 @@ class Board
 
   include DisplayBoard
 
-  def initialize(mode)
-    @board = initialise_board if mode != 1
+  def initialize(mode = 0)
+    @board = mode.zero? ? Array.new(8) { Array.new(8, nil) } : initialise_board
     @available = []
     @captures = []
     @past_board = []
     @rare = { check: [], en_pass: [], move_number: 0, previous: [] }
-
-    # custom
-  end
-
-  def custom
-    # @board[1][6] = Pawn.new([0, [1, 6], 'P'])
-    # @board[6][4] = nil
-    # @board[7][5] = nil
-    # @board[7][6] = nil
-    # @board[4][7] = Bishop.new([1, [4, 7], 'B'])
-    # @board[4][2] = Bishop.new([1, [4, 2], 'B'])
-    # @board[3][2] = Bishop.new([1, [3, 2], 'B'])
-    # @board[4][7] = Queen.new([1, [4, 7], 'Q'])
   end
 
   def initialise_board
