@@ -29,9 +29,9 @@ module Serialize
     end
 
     file_name = find_saved_file
-    safe_class = [Symbol, Game, Board, Player, Bishop, King, Knight, Pawn, Queen, Rook]
+    safe_class = [Symbol, Game, Board, Engine, Player, Bishop, King, Knight, Pawn, Queen, Rook]
     File.open("saved_games/#{file_name}", 'r') do |file|
-      att = YAML.safe_load(file, safe_class, [], true)
+      att = YAML.safe_load(file, permitted_classes: safe_class, permitted_symbols: [], aliases: true)
       load_attributes(att)
     end
   end

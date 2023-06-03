@@ -34,12 +34,12 @@ module DisplayBoard
     if (@captures + @rare[:check]).include?([row_index, col_index])
       41
     elsif @active_piece && @active_piece.location == [row_index, col_index]
-      42
+      42 # 102
     elsif @rare[:previous].include?([row_index, col_index])
-      43
-    elsif (row_index + col_index).even? then 106 # 43
+      43 # 103
+    elsif (row_index + col_index).even? then 106 # 104
     else
-      44 # 44
+      44
     end
   end
 
